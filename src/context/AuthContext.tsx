@@ -1,15 +1,17 @@
 'use client'
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import {
     onAuthStateChanged,
     getAuth,
     User,
 } from 'firebase/auth';
-import firebase_app from '@/firebase/config';
+import firebase_app, { auth } from '@/firebase/config';
 
-const auth = getAuth(firebase_app);
+interface props{
+    user:User|null
+}
 
-export const AuthContext = React.createContext({});
+export const AuthContext = createContext<props>(null!);
 
 export const useAuthContext = () => React.useContext(AuthContext);
 
@@ -37,3 +39,7 @@ export const AuthContextProvider = ({
         </AuthContext.Provider>
     );
 };
+
+export const UserAuth=()=>{
+    return useContext(AuthContext)
+}
